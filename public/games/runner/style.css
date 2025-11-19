@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    background-color: #050510;
+}
+
+#game-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+/* [수정 1] 점수판 위치 왼쪽으로 변경 및 정렬 고정 */
+#score-hud {
+    position: absolute;
+    top: 30px;
+    left: 40px; /* 오른쪽(right)에서 왼쪽(left)으로 변경 */
+    
+    font-size: 2rem;
+    font-weight: 900;
+    color: #00f3ff;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    z-index: 20;
+    letter-spacing: 2px;
+    
+    /* 숫자 떨림 방지 핵심 코드 */
+    font-variant-numeric: tabular-nums; /* 숫자 너비 일정하게 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.ui-panel {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 10, 20, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 50px 70px;
+    border-radius: 20px;
+    border: 2px solid #d900ff;
+    box-shadow: 0 0 30px rgba(217, 0, 255, 0.2), inset 0 0 20px rgba(217, 0, 255, 0.1);
+    text-align: center;
+    z-index: 10;
+    min-width: 320px;
+}
+
+.ui-panel h1 {
+    color: #d900ff;
+    font-size: 3.5rem;
+    margin: 0 0 20px 0;
+    text-shadow: 0 0 20px rgba(217, 0, 255, 0.8);
+    font-style: italic;
+    letter-spacing: -2px;
+}
+
+.ui-panel h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+#final-score {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px #fff;
+}
+
+.ui-panel button {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    background: transparent;
+    border: 2px solid #00f3ff;
+    color: #00f3ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.ui-panel button:hover {
+    background: #00f3ff;
+    color: #000;
+    box-shadow: 0 0 20px #00f3ff;
+    transform: scale(1.05);
+}
+
+.ui-panel button:last-child { margin-bottom: 0; }
+
+/* 리더보드 목록 스타일 수정 */
+.ui-panel ol {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+    max-height: 300px; /* 목록이 길어지면 스크롤 */
+    overflow-y: auto;  /* 스크롤바 생성 */
+}
+
+/* 스크롤바 커스텀 (크롬/사파리) */
+.ui-panel ol::-webkit-scrollbar { width: 6px; }
+.ui-panel ol::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 3px; }
+.ui-panel ol::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+
+.ui-panel li {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    border-left: 3px solid #00f3ff; /* 형광 하늘색 포인트 */
+    
+    /* 텍스트 정렬을 위한 플렉스 박스 (JS에서 넣었지만 확실하게 하기 위해) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hidden { display: none !important; }

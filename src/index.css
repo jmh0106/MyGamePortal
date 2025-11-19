@@ -1,0 +1,24 @@
+/* 기존에 있던 제한(max-width, text-align 등)을 모두 없앱니다 */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark; /* 다크모드 기본 지원 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100vw; /* 화면 전체 너비 사용 */
+  overflow-x: hidden;
+}
+
+/* React가 렌더링되는 최상위 루트도 꽉 채우기 */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center; /* 기본 중앙 정렬 */
+}

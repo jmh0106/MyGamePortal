@@ -1,0 +1,231 @@
+/* 전체 레이아웃 */
+body {
+  margin: 0;
+  font-family: 'Pretendard', sans-serif;
+  background: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* --- [1] Global Nav (최상단 고정, 확장 가능) --- */
+.global-nav {
+  position: sticky; /* 스티키 고정 */
+  top: 0;
+  z-index: 1000; /* 가장 위에 오도록 */
+  
+  height: 60px; /* 높이 고정 (중요!) */
+  width: 100%;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-sizing: border-box;
+
+  background: rgba(10, 10, 10, 0.95); /* 뒤가 살짝 비치는 진한 검정 */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #333;
+}
+
+.nav-brand {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #00f3ff;
+  letter-spacing: 1px;
+  margin-right: 40px;
+}
+
+/* 확장 가능한 메뉴 링크들 */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* 남은 공간 차지 */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #aaa;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: white; }
+
+/* 로그인 영역 */
+.nav-auth { display: flex; align-items: center; }
+
+.user-info { display: flex; align-items: center; gap: 10px; }
+.user-name { font-size: 0.9rem; color: white; }
+.user-profile-pic { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #00f3ff; }
+
+.auth-btn {
+  border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: 0.2s;
+}
+.auth-btn.login { background: #00f3ff; color: black; font-weight: bold; }
+.auth-btn.login:hover { background: #fff; box-shadow: 0 0 10px #00f3ff; }
+.auth-btn.logout { background: transparent; border: 1px solid #555; color: #ccc; }
+.auth-btn.logout:hover { border-color: #ff0055; color: #ff0055; }
+
+
+/* --- [2] Hero Section (제목) - 스크롤하면 사라짐 --- */
+.hero-section {
+  height: 400px; /* 적당한 높이 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle at center, #2a1a4a 0%, #121212 70%);
+}
+
+.main-title {
+  font-size: 5rem;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(to right, #7928CA, #FF0080);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -2px;
+}
+
+.sub-title { font-size: 1.2rem; color: #888; margin-top: 10px; }
+
+
+/* --- [3] Tag Nav (필터) - 상단 Nav 바로 아래 붙음 --- */
+.tag-nav {
+  position: sticky;
+  /* [핵심] Global Nav 높이(60px)만큼 띄워서 고정 */
+  top: 60px; 
+  z-index: 999; /* Global Nav보단 아래 */
+  
+  width: 100%;
+  padding: 15px 0;
+  background: rgba(18, 18, 18, 0.9); /* 반투명 */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  display: flex;
+  justify-content: center; /* 태그 중앙 정렬 */
+}
+
+.tag-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.tag-btn {
+  background: transparent;
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 6px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.tag-btn:hover { border-color: #fff; color: #fff; }
+.tag-btn.active { background: #FF0080; border-color: #FF0080; color: white; font-weight: bold; }
+
+
+/* --- [4] Game List --- */
+.game-list-section {
+  padding: 40px 20px;
+  display: flex; justify-content: center;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* 게임 카드 디자인 (기존 유지) */
+.game-card {
+  background: #1e1e1e; border-radius: 16px; overflow: hidden; cursor: pointer; border: 1px solid #333; transition: 0.3s; display: flex; flex-direction: column;
+}
+.game-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.5); border-color: #7928CA; }
+.image-frame { width: 100%; height: 200px; overflow: hidden; }
+.image-frame img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.game-card:hover .image-frame img { transform: scale(1.1); }
+.card-info { padding: 20px; }
+.card-info h3 { margin: 0 0 10px 0; color: white; }
+.card-tags span { font-size: 0.8rem; color: #FF0080; margin-right: 8px; }
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .nav-links { display: none; /* 모바일엔 메뉴 일단 숨김 (나중에 햄버거 버튼 등 구현) */ }
+  .main-title { font-size: 3rem; }
+  .hero-section { height: 300px; }
+}
+
+.hidden { display: none !important; }
+
+/* --- [5] 게임 플레이어 (전체 화면 모드) --- */
+.game-player-overlay {
+  position: fixed; /* 화면에 딱 고정 */
+  top: 0;
+  left: 0;
+  width: 100vw; /* 가로 전체 */
+  height: 100vh; /* 세로 전체 */
+  background: #000; /* 배경 검은색 */
+  z-index: 5000; /* 내비게이션(1000)이나 다른 요소보다 무조건 위에 뜨게 */
+  display: flex;
+  flex-direction: column;
+}
+
+.player-header {
+  padding: 15px 30px;
+  background: #111;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0; /* 헤더 크기는 줄어들지 않음 */
+}
+
+.player-header h2 {
+  margin: 0;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.back-btn {
+  background: #333;
+  border: 1px solid #555;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.back-btn:hover { background: #555; border-color: white; }
+
+/* iframe을 감싸는 박스 */
+.iframe-wrapper {
+  flex-grow: 1; /* 헤더 빼고 남은 공간을 꽉 채움 */
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* 스크롤바 방지 */
+}
+
+/* 실제 게임 화면 (iframe) */
+.iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}

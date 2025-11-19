@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Runner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <div id="score-hud" class="hidden">SCORE: 0</div>
+
+    <div id="start-menu" class="ui-panel">
+        <h1>NEON RUNNER</h1>
+        
+        <h2 id="final-score" class="hidden">FINAL SCORE: 0</h2>
+
+        <button id="start-button">GAME START</button>
+        <button id="settings-button">SETTINGS</button>
+        <button id="leaderboard-button">LEADERBOARD</button>
+    </div>
+
+    <div id="settings-menu" class="ui-panel hidden">
+        <h2>SETTINGS</h2>
+        <p>SOUND VOL: <input type="range" min="0" max="100" value="50"></p>
+        <button class="back-button">BACK</button>
+    </div>
+
+    <div id="leaderboard-menu" class="ui-panel hidden">
+        <h2>RANKING</h2>
+        <ol>
+            <li>1. CYBER_PUNK - 9999</li>
+            <li>2. RUNNER_01 - 5432</li>
+            <li>3. TEST_USER - 1234</li>
+        </ol>
+        <button class="back-button">BACK</button>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
