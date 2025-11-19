@@ -5,12 +5,17 @@ import './App.css';
 import { loginWithGoogle, logout, auth, saveHighScore, getLeaderboard } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import UserProfile from './components/UserProfile';
+import Modal from './components/Modal'; // [추가] 모달 컴포넌트
 
 function App() {
   const [selectedGame, setSelectedGame] = useState(null);
   const [filter, setFilter] = useState("All");
   const [user, setUser] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [modal, setModal] = useState({ show: false, message: '' }); // [추가] 모달 상태
+
+  // [추가] 모달을 닫는 함수
+  const closeModal = () => setModal({ show: false, message: '' });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -29,7 +34,8 @@ function App() {
         if (user) {
           const isNewRecord = await saveHighScore(user, gameId, score);
           if (isNewRecord) {
-            alert(`🎉 축하합니다! ${selectedGame.title} 신기록 달성: ${score}점`);
+            // [수정] alert 대신 모달 사용
+            setModal({ show: true, message: `🎉 축하합니다! ${selectedGame.title} 신기록 달성: ${score}점` });
             // 필요하다면 여기서 유저 상태를 업데이트하거나 프로필을 열어줄 수 있습니다.
           }
         }
@@ -58,7 +64,8 @@ function App() {
 
   const handleLogin = async () => {
     const user = await loginWithGoogle();
-    if (user) alert(`환영합니다, ${user.displayName}님!`);
+    // [수정] alert 대신 모달 사용
+    if (user) setModal({ show: true, message: `환영합니다, ${user.displayName}님!` });
   };
 
   const handleLogout = async () => {
@@ -80,11 +87,15 @@ function App() {
 
   return (
     <>
+      {/* [추가] 모달 렌더링 */}
+      {modal.show && <Modal message={modal.message} onClose={closeModal} />}
+
       {showProfile && user && (
         <UserProfile 
           user={user} 
           onClose={() => setShowProfile(false)} 
           onUpdateUser={handleUserUpdate}
+          showModal={(message) => setModal({ show: true, message })}
         />
       )}
 
@@ -161,7 +172,8 @@ function App() {
               {filteredGames.map((game) => (
                 <div key={game.id} className="game-card" onClick={() => {
                   if(game.path) setSelectedGame(game);
-                  else alert("준비중!");
+                  // [수정] alert 대신 모달 사용
+                  else setModal({ show: true, message: "준비중!" });
                 }}>
                   <div className="image-frame">
                     <img src={game.thumbnail} alt={game.title} />

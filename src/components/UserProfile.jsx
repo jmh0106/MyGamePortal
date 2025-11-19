@@ -11,7 +11,7 @@ const calculateTier = (score) => {
   return { name: "BRONZE", color: "#cd7f32" };                    // 동색
 };
 
-function UserProfile({ user, onClose, onUpdateUser }) {
+function UserProfile({ user, onClose, onUpdateUser, showModal }) { // [추가] showModal prop
   const [nickname, setNickname] = useState(user.displayName || "");
   const [scores, setScores] = useState({});
   const [loading, setLoading] = useState(true);
@@ -30,17 +30,17 @@ function UserProfile({ user, onClose, onUpdateUser }) {
   }, [user]);
 
   const handleSaveNickname = async () => {
-    if (!nickname.trim()) return alert("닉네임을 입력해주세요.");
+    if (!nickname.trim()) return showModal("닉네임을 입력해주세요."); // [수정]
     const success = await updateUserNickname(user, nickname);
     if (success) {
-      alert("닉네임이 변경되었습니다!");
+      showModal("닉네임이 변경되었습니다!"); // [수정]
       onUpdateUser(); // App.jsx에 변경 알림 (화면 갱신)
       setIsEditing(false);
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="profile-overlay" onClick={onClose}>
       <div className="profile-modal" onClick={e => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>✕</button>
         
