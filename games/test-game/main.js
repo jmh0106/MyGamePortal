@@ -27,7 +27,12 @@ function initializePeer(requestedId) {
     const options = {
         config: {
             'iceServers': [
-                { urls: 'stun:stun.l.google.com:19302' }
+                { urls: 'stun:stun.l.google.com:19302' },
+                {
+                    urls: 'turn:numb.viagenie.ca',
+                    username: 'webrtc@live.com',
+                    credential: 'muazkh'
+                }
             ]
         }
     };
@@ -66,7 +71,7 @@ function setupConnection(newConn) {
     connectionBox.style.display = 'none';
     chatBox.style.display = 'block';
 
-    // When the connection is established, the initiator sends a handshake.
+    // When the connection is established, both sides send a handshake.
     conn.on('open', () => {
         conn.send({ type: 'HANDSHAKE', payload: { name: myName } });
     });
@@ -77,11 +82,6 @@ function setupConnection(newConn) {
                 // If this is a handshake, set the opponent's name
                 opponentName = data.payload.name || 'Guest';
                 statusEl.textContent = `${opponentName}와(과) 연결되었습니다.`;
-                // The receiver sends their name back
-                if (!conn.sentHandshake) {
-                    conn.send({ type: 'HANDSHAKE', payload: { name: myName } });
-                    conn.sentHandshake = true; // Mark that we've sent it
-                }
                 break;
             case 'CHAT':
                 // If this is a chat message, display it
