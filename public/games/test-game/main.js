@@ -24,7 +24,14 @@ function initializePeer(requestedId) {
         peer.destroy();
     }
     
-    peer = requestedId ? new Peer(requestedId) : new Peer();
+    const options = {
+        config: {
+            'iceServers': [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        }
+    };
+    peer = requestedId ? new Peer(requestedId, options) : new Peer(options);
 
     peer.on('open', (id) => {
         myPeerIdEl.textContent = id;
