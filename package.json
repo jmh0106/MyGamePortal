@@ -1,7 +1,7 @@
 {
   "name": "my-game-portal",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://jmh0106.github.io/MyGamePortal",
   "type": "module",
   "scripts": {
