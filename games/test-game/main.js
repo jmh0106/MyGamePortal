@@ -26,16 +26,47 @@ function initializePeer(requestedId) {
     
     const options = {
         config: {
-            'iceServers': [
-                { urls: 'stun:stun.l.google.com:19302' },
+            iceServers: [
                 {
-                    urls: 'turn:numb.viagenie.ca',
-                    username: 'webrtc@live.com',
-                    credential: 'muazkh'
+                    urls: "stun:stun.relay.metered.ca:80",
+                },
+                {
+                    urls: "turn:global.relay.metered.ca:80",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3",
+                },
+                {
+                    urls: "turn:global.relay.metered.ca:80?transport=tcp",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3",
+                },
+                {
+                    urls: "turn:global.relay.metered.ca:443",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3",
+                },
+                {
+                    urls: "turns:global.relay.metered.ca:443?transport=tcp",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3",
+                },
+                {
+                    urls: "stun:stun.l.google.com:19302" // 구글 무료 서버 (보험용으로 놔둬도 됨)
+                },
+                {
+                    urls: "turn:global.turn.metered.ca:80",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3"
+                },
+                {
+                    urls: "turn:global.turn.metered.ca:443",
+                    username: "d2b8da2ad5c3fe794e1b93d6",
+                    credential: "MblaMu8koKGXRww3"
                 }
-            ]
+            ],
         }
     };
+
     peer = requestedId ? new Peer(requestedId, options) : new Peer(options);
 
     peer.on('open', (id) => {
