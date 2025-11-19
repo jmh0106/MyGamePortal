@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "title": "점핑 텍스트",
-    "description": "HTML/CSS로 만든 간단한 테스트용 게임",
+    "title": "P2P 채팅 테스트",
+    "description": "PeerJS를 이용한 서버 없는 P2P 채팅",
     "path": "games/test-game/index.html",
-    "thumbnail": "https://placehold.co/300x200/7928CA/white?text=Jumping",
-    "tags": ["2D", "Arcade"]
+    "thumbnail": "https://placehold.co/300x200/7928CA/white?text=P2P+Chat",
+    "tags": ["P2P", "Chat"]
   },
   {
     "id": 2,

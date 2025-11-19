@@ -1,17 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>테스트 게임</title>
-    <style>
-        body { background-color: #222; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
-        h1 { animation: bounce 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-    </style>
+    <meta charset="UTF-8">
+    <title>P2P 채팅 테스트</title>
+    <!-- PeerJS 라이브러리 로드 -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <!-- 분리된 CSS 파일 로드 -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <h1>🎮 게임 실행 성공!</h1>
-        <p>이것은 독립된 HTML 파일입니다.</p>
+
+    <div class="container">
+        <h1>P2P 채팅</h1>
+
+        <!-- 연결 섹션 -->
+        <div id="connection-box">
+            <p>내 ID:</p>
+            <div id="my-peer-id">로딩 중...</div>
+            <hr style="border-color: #444; margin: 20px 0;">
+            <p>상대방 ID를 입력하고 연결하세요:</p>
+            <input type="text" id="peer-id-input" placeholder="상대방 ID">
+            <button id="connect-btn">연결</button>
+        </div>
+
+        <!-- 채팅 섹션 -->
+        <div id="chat-box">
+            <div id="messages"></div>
+            <input type="text" id="message-input" placeholder="메시지 입력...">
+            <button id="send-btn">전송</button>
+        </div>
+        
+        <div id="status"></div>
     </div>
+
+    <!-- 분리된 JavaScript 파일 로드 -->
+    <script src="main.js"></script>
 </body>
 </html>

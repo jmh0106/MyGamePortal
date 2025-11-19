@@ -41,6 +41,16 @@ function App() {
         }
       }
 
+      if (event.data.type === 'REQUEST_USER_INFO') {
+        // 게임 iframe이 유저 정보를 요청하면 현재 유저 정보를 보내줍니다.
+        // 로그인하지 않은 경우 user는 null입니다.
+        event.source.postMessage({
+          type: 'USER_INFO',
+          // 전체 user 객체 대신 필요한 정보만 선별해서 보냅니다.
+          user: user ? { displayName: user.displayName, uid: user.uid } : null
+        }, '*');
+      }
+
       if (event.data.type === 'REQUEST_LEADERBOARD') {
         console.log("📜 게임에서 리더보드 요청함...");
         const { gameId } = event.data;
