@@ -3,7 +3,7 @@
     "id": 1,
     "title": "점핑 텍스트",
     "description": "HTML/CSS로 만든 간단한 테스트용 게임",
-    "path": "/games/test-game/index.html",
+    "path": "games/test-game/index.html",
     "thumbnail": "https://placehold.co/300x200/7928CA/white?text=Jumping",
     "tags": ["2D", "Arcade"]
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "title": "Neon Runner",
     "description": "Three.js로 만든 서브웨이 서퍼 스타일 게임",
-    "path": "/games/runner/index.html",
+    "path": "games/runner/index.html",
     "thumbnail": "https://placehold.co/300x200/FF0080/white?text=Neon+Runner",
     "tags": ["3D", "Runner"]
   },
