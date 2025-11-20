@@ -17,10 +17,18 @@
   },
   {
     "id": 3,
-    "title": "스페이스 슈터",
-    "description": "우주를 배경으로 한 슈팅 게임",
-    "path": "",
-    "thumbnail": "https://placehold.co/300x200/0070f3/white?text=Space",
-    "tags": ["Shooting", "2D"]
+    "title": "멀티플레이 루미큐브",
+    "description": "P2P 멀티플레이 루미큐브 게임",
+    "path": "games/rummikub/index.html",
+    "thumbnail": "https://placehold.co/300x200/f3a000/white?text=Rummikub",
+    "tags": ["P2P", "Board Game"]
+  },
+  {
+    "id": 4,
+    "title": "멀티플레이 핑퐁",
+    "description": "P2P 멀티플레이 핑퐁 게임",
+    "path": "games/ping-pong/index.html",
+    "thumbnail": "https://placehold.co/300x200/333/white?text=Ping+Pong",
+    "tags": ["P2P", "2-Player"]
   }
 ]

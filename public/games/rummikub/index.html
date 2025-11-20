@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rummikub</title>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="lobby">
+            <h1>Rummikub Lobby</h1>
+            <div class="lobby-menu">
+                <button id="create-room">방 만들기</button>
+                <button id="join-room">방 들어가기</button>
+                <button id="settings">설정</button>
+                <button id="leaderboard">리더보드</button>
+            </div>
+        </div>
+
+        <div id="game-room" class="hidden">
+            <h2>대기방</h2>
+            <div id="room-id-container" class="hidden">
+                <strong>방 ID:</strong> <span id="room-id"></span>
+            </div>
+            <ul id="player-list">
+                <!-- Player items will be added here -->
+            </ul>
+            <div class="room-actions">
+                <button id="start-game" disabled>게임 시작하기</button>
+                <button id="leave-room">방 나가기</button>
+            </div>
+        </div>
+
+        <div id="game-view" class="hidden">
+            <div id="game-info">
+                <div id="timer">_</div>
+                <div id="current-turn">_</div>
+            </div>
+            <div id="game-board">
+                <!-- Tiles will be placed here -->
+            </div>
+            <div id="player-hand">
+                <!-- Player's tiles go here -->
+            </div>
+            <div id="game-controls">
+                <button id="undo-btn">되돌리기</button>
+                <button id="end-turn-btn">턴 종료</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button id="modal-close-btn">확인</button>
+        </div>
+    </div>
+
+    <div id="join-modal" class="hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h2>방 입장</h2>
+            <p>호스트의 방 ID를 입력하세요.</p>
+            <input type="text" id="room-id-input" placeholder="Room ID...">
+            <div class="modal-actions">
+                <button id="join-modal-cancel-btn">취소</button>
+                <button id="join-modal-join-btn">입장</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
