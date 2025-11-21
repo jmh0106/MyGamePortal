@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Ping Pong</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Multiplayer Ping Pong</h1>
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+    </div>
+    <div id="p2p-info">
+        <p>Your ID: <span id="my-id"></span></p>
+        <input type="text" id="peer-id-input" placeholder="Enter peer ID">
+        <button id="connect-btn">Connect</button>
+        <p id="connection-status"></p>
+    </div>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
