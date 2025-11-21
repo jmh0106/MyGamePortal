@@ -15,7 +15,7 @@ const ICE_SERVERS = {
     ],
 };
 
-export function setupHost(players, connections, updatePlayerList, onData, onClose, leaveRoom, onLobbyChange) {
+export function setupHost(nickname, players, connections, updatePlayerList, onData, onClose, leaveRoom, onLobbyChange) {
     const shortId = Math.floor(100000 + Math.random() * 900000).toString();
     const peer = new Peer(shortId, { config: ICE_SERVERS });
 
@@ -23,12 +23,11 @@ export function setupHost(players, connections, updatePlayerList, onData, onClos
         document.getElementById('room-id').textContent = id;
         document.getElementById('room-id-container').classList.remove('hidden');
         
-        // Clear players list on new room creation
         players.length = 0;
-        const myPlayer = { id: id, name: `Player 1` };
+        const myPlayer = { id: id, name: nickname || `Player 1` };
         players.push(myPlayer);
         updatePlayerList(players, 'lobby-player-list');
-        onLobbyChange(); // Update host's lobby state
+        onLobbyChange();
         showModal(`방이 생성되었습니다. 다른 플레이어에게 ID [${id}]를 알려주세요.`);
     });
 
@@ -40,23 +39,22 @@ export function setupHost(players, connections, updatePlayerList, onData, onClos
         }
         
         conn.on('open', () => {
-            const newPlayer = { id: conn.peer, name: `Player ${players.length + 1}` };
+            const guestNickname = conn.metadata.nickname;
+            const newPlayer = { id: conn.peer, name: guestNickname || `Player ${players.length + 1}` };
             connections.push(conn);
             players.push(newPlayer);
             
-            // Welcome the new player with the full list
             conn.send({ type: 'welcome', data: { players, hostId: peer.id } });
-            // Inform others about the new player
             broadcast(connections, { type: 'player_joined', data: { player: newPlayer } }, conn.peer);
             
             updatePlayerList(players, 'lobby-player-list');
-            onLobbyChange(); // Update host's lobby state
+            onLobbyChange();
         });
 
         conn.on('data', (message) => onData(conn.peer, message));
         conn.on('close', () => {
             onClose(conn.peer);
-            onLobbyChange(); // Update host's lobby state
+            onLobbyChange();
         });
     });
 
@@ -65,7 +63,7 @@ export function setupHost(players, connections, updatePlayerList, onData, onClos
         if (err.type === 'unavailable-id') {
             showModal(`ID [${shortId}]를 사용할 수 없습니다. 새 ID로 다시 시도합니다...`);
             peer.destroy();
-            setTimeout(() => setupHost(players, connections, updatePlayerList, onData, onClose, leaveRoom, onLobbyChange), 100);
+            setTimeout(() => setupHost(nickname, players, connections, updatePlayerList, onData, onClose, leaveRoom, onLobbyChange), 100);
         } else {
             showModal(`오류가 발생했습니다: ${err.message}`);
             leaveRoom();
@@ -75,16 +73,16 @@ export function setupHost(players, connections, updatePlayerList, onData, onClos
     return peer;
 }
 
-export function joinRoom(hostId, onData, onClose, leaveRoom, onPeerOpen) {
+export function joinRoom(hostId, nickname, connections, onData, onClose, leaveRoom, onPeerOpen) {
     showModal('연결 중...', false);
     const peer = new Peer({ config: ICE_SERVERS });
 
     peer.on('open', (id) => {
-        onPeerOpen(id); // Let the main module know our ID.
-        const conn = peer.connect(hostId);
+        onPeerOpen(id);
+        const conn = peer.connect(hostId, { metadata: { nickname: nickname } });
         
         conn.on('open', () => {
-            // Connections are now managed by the host, no need to add here for guest.
+            connections.push(conn);
             showModal('연결되었습니다! 게임이 시작되기를 기다려주세요.');
         });
 

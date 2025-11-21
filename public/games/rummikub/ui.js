@@ -77,25 +77,29 @@ export function displayHand(myHand, sortMode, isMyTurn, draggedTileInfo) {
     });
 }
 
-export function updateTurnUI(turnOrder, currentTurnIndex, myPeerId, players, stopTurnTimer, isMyTurn) {
+export function updateTurnUI(turnOrder, currentTurnIndex, myPeerId, players) {
     if (turnOrder.length === 0) return;
     const currentTurnPlayerId = turnOrder[currentTurnIndex];
     const player = players.find(p => p.id === currentTurnPlayerId);
+    const isMyTurn = currentTurnPlayerId === myPeerId;
     
     document.getElementById('current-turn').textContent = player ? `${player.name}'s Turn` : '...';
     document.getElementById('end-turn-btn').disabled = !isMyTurn;
     document.getElementById('undo-btn').disabled = !isMyTurn;
-    
-    stopTurnTimer();
 }
 
-export function updatePlayerList(players, listId) {
+export function updatePlayerList(players, listId, playerStates = {}) {
     const playerList = document.getElementById(listId);
     if (!playerList) return;
     playerList.innerHTML = '';
     players.forEach(player => {
         const li = document.createElement('li');
-        li.textContent = player.name;
+        const handSize = playerStates[player.id]?.handSize;
+        let text = player.name;
+        if (listId === 'game-player-list' && handSize !== undefined) {
+            text += ` (${handSize} tiles)`;
+        }
+        li.textContent = text;
         li.className = 'player-slot';
         playerList.appendChild(li);
     });
